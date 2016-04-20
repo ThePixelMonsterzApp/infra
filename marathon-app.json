@@ -1,0 +1,90 @@
+{
+  "id": "/monsterz",
+  "groups": [
+    {
+      "id": "/monsterz/apps",
+      "apps": [
+        {
+          "id": "/monsterz/apps/hello",
+          "cpus": 0.1,
+          "mem": 512,
+          "instances": 2,
+          "container": {
+            "type": "DOCKER",
+            "docker": {
+              "image": "thepixelmonsterzapp/hello:latest",
+              "network": "BRIDGE",
+              "forcePullImage": true,
+              "portMappings": [
+                {
+                  "containerPort": 9090,
+                  "hostPort": 8089,
+                  "protocol": "tcp"
+                }
+              ]
+            }
+          },
+          "labels": {
+            "DCOS_SERVICE_NAME": "monsterz",
+            "DCOS_SERVICE_SCHEME": "http",
+            "DCOS_SERVICE_PORT_INDEX": "0"
+          },
+          "env": {
+            "REDIS_HOST": "redis-data-monsterz.marathon.mesos",
+            "REDIS_PORT": "8090",
+            "MONSTERZ_DEN_HOST": "monsterz-den-apps-monsterz.marathon.mesos",
+            "MONSTERZ_DEN_PORT": "8088",
+            "ENV": "DEV"
+          }
+        },
+        {
+          "id": "/monsterz/apps/monsterz-den",
+          "cpus": 0.1,
+          "mem": 512,
+          "instances": 2,
+          "container": {
+            "type": "DOCKER",
+            "docker": {
+              "image": "thepixelmonsterzapp/monsterz-den:latest",
+              "network": "BRIDGE",
+              "forcePullImage": true,
+              "portMappings": [
+                {
+                  "containerPort": 8080,
+                  "hostPort": 8088,
+                  "protocol": "tcp"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "/monsterz/data",
+      "apps": [
+        {
+          "id": "/monsterz/data/redis",
+          "cpus": 0.5,
+          "mem": 128,
+          "instances": 1,
+          "container": {
+            "type": "DOCKER",
+            "docker": {
+              "image": "redis:3",
+              "network": "BRIDGE",
+              "forcePullImage": false,
+              "portMappings": [
+                {
+                  "containerPort": 6379,
+                  "hostPort": 8090,
+                  "protocol": "tcp"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
