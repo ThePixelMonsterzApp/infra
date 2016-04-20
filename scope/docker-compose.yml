@@ -4,6 +4,7 @@ services:
 
   weavescope:
     image: "weaveworks/scope:0.14.0"
+    restart: "always"
     network_mode: "host"
     pid: "host"
     privileged: true
