@@ -7,7 +7,7 @@
         {
           "id": "/monsterz/apps/hello",
           "cpus": 0.1,
-          "mem": 512,
+          "mem": 256,
           "instances": 2,
           "container": {
             "type": "DOCKER",
@@ -18,7 +18,7 @@
               "portMappings": [
                 {
                   "containerPort": 9090,
-                  "hostPort": 8089,
+                  "hostPort": 18000,
                   "protocol": "tcp"
                 }
               ]
@@ -30,17 +30,17 @@
             "DCOS_SERVICE_PORT_INDEX": "0"
           },
           "env": {
-            "REDIS_HOST": "redis-data-monsterz.marathon.mesos",
-            "REDIS_PORT": "8090",
             "MONSTERZ_DEN_HOST": "monsterz-den-apps-monsterz.marathon.mesos",
-            "MONSTERZ_DEN_PORT": "8088",
+            "MONSTERZ_DEN_PORT": "18001",
+            "REDIS_HOST": "redis-data-monsterz.marathon.mesos",
+            "REDIS_PORT": "18002",
             "ENV": "DEV"
           }
         },
         {
           "id": "/monsterz/apps/monsterz-den",
           "cpus": 0.1,
-          "mem": 512,
+          "mem": 256,
           "instances": 2,
           "container": {
             "type": "DOCKER",
@@ -51,7 +51,7 @@
               "portMappings": [
                 {
                   "containerPort": 8080,
-                  "hostPort": 8088,
+                  "hostPort": 18001,
                   "protocol": "tcp"
                 }
               ]
@@ -77,7 +77,7 @@
               "portMappings": [
                 {
                   "containerPort": 6379,
-                  "hostPort": 8090,
+                  "hostPort": 18002,
                   "protocol": "tcp"
                 }
               ]
