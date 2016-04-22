@@ -7,7 +7,7 @@
         {
           "id": "/monsterz/apps/hello",
           "cpus": 0.1,
-          "mem": 256,
+          "mem": 32,
           "instances": 2,
           "container": {
             "type": "DOCKER",
@@ -40,7 +40,7 @@
         {
           "id": "/monsterz/apps/monsterz-den",
           "cpus": 0.1,
-          "mem": 256,
+          "mem": 32,
           "instances": 2,
           "container": {
             "type": "DOCKER",
@@ -66,7 +66,7 @@
         {
           "id": "/monsterz/data/redis",
           "cpus": 0.5,
-          "mem": 128,
+          "mem": 64,
           "instances": 1,
           "container": {
             "type": "DOCKER",
