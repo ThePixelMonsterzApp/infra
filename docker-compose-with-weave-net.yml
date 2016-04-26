@@ -1,0 +1,21 @@
+version: "2"
+
+services:
+
+  hello:
+    hostname: identiorca.weave.local
+    image: thepixelmonsterzapp/hello
+    build: ./hello
+    environment:
+      USE_IP_ADDR: "1"
+      ENV: "DEV"
+    ports: [ "0.0.0.0:9090:9090" ]
+
+  monsterz-den:
+    hostname: dnmonster.weave.local
+    image: thepixelmonsterzapp/monsterz-den
+    build: ./monsterz-den
+
+  redis:
+    hostname: redis.weave.local
+    image: redis:3
