@@ -1,0 +1,120 @@
+apiVersion: v1
+kind: List
+items:
+- apiVersion: v1
+  kind: ReplicationController
+  metadata:
+    name: redis
+    labels:
+      name: redis
+  spec:
+    replicas: 1
+    selector:
+      name: redis
+    template:
+      metadata:
+        labels:
+          name: redis
+      spec:
+        containers:
+        - name: redis
+          image: redis:3
+          #imagePullPolicy: IfNotPresent
+          ports:
+          - containerPort: 6379
+- apiVersion: v1
+  kind: Service
+  metadata:
+    name: redis
+    labels:
+      name: redis
+  spec:
+    #type: NodePort
+    ports:
+      - port: 6379
+        name: redis
+        protocol: TCP
+    selector:
+      name: redis
+- apiVersion: v1
+  kind: Service
+  metadata:
+    name: hello
+    labels:
+      name: hello
+  spec:
+    #type: NodePort
+    ports:
+      - port: 80
+        targetPort: 9090
+        name: app
+        protocol: TCP
+    selector:
+      name: hello
+- apiVersion: v1
+  kind: ReplicationController
+  metadata:
+    name: monsterz-den
+    labels:
+      name: monsterz-den
+  spec:
+    replicas: 3
+    selector:
+      name: monsterz-den
+    template:
+      metadata:
+        labels:
+          name: monsterz-den
+      spec:
+        containers:
+        - name: monsterz-den
+          image: thepixelmonsterzapp/monsterz-den
+          #imagePullPolicy: IfNotPresent
+          ports:
+          - containerPort: 8080
+- apiVersion: v1
+  kind: Service
+  metadata:
+    name: monsterz-den
+    labels:
+      name: monsterz-den
+  spec:
+    #type: NodePort
+    ports:
+      - port: 8080
+        name: app
+        protocol: TCP
+    selector:
+      name: monsterz-den
+- apiVersion: v1
+  kind: ReplicationController
+  metadata:
+    name: hello
+    labels:
+      name: hello
+  spec:
+    replicas: 2
+    selector:
+      name: hello
+    template:
+      metadata:
+        labels:
+          name: hello
+      spec:
+        containers:
+        - name: hello
+          image: thepixelmonsterzapp/hello
+          #imagePullPolicy: IfNotPresent
+          env:
+            - name: ENV
+              value: DEV
+            - name: REDIS_HOST
+              value: "$(REDIS_SERVICE_HOST)"
+            - name: REDIS_PORT
+              value: "$(REDIS_SERVICE_PORT)"
+            - name: MONSTERZ_DEN_HOST
+              value: "$(MONSTERZ_DEN_SERVICE_HOST)"
+            - name: MONSTERZ_DEN_PORT
+              value: "$(MONSTERZ_DEN_SERVICE_PORT)"
+          ports:
+          - containerPort: 9090
