@@ -6,8 +6,8 @@
       "apps": [
         {
           "id": "/monsterz/apps/hello",
-          "cpus": 0.1,
-          "mem": 32,
+          "cpus": 0.2,
+          "mem": 64,
           "instances": 2,
           "container": {
             "type": "DOCKER",
@@ -33,14 +33,13 @@
             "MONSTERZ_DEN_HOST": "monsterz-den-apps-monsterz.marathon.mesos",
             "MONSTERZ_DEN_PORT": "18001",
             "REDIS_HOST": "redis-data-monsterz.marathon.mesos",
-            "REDIS_PORT": "18002",
-            "ENV": "DEV"
+            "REDIS_PORT": "18002"
           }
         },
         {
           "id": "/monsterz/apps/monsterz-den",
-          "cpus": 0.1,
-          "mem": 32,
+          "cpus": 0.2,
+          "mem": 64,
           "instances": 2,
           "container": {
             "type": "DOCKER",
@@ -66,7 +65,7 @@
         {
           "id": "/monsterz/data/redis",
           "cpus": 0.5,
-          "mem": 64,
+          "mem": 128,
           "instances": 1,
           "container": {
             "type": "DOCKER",
